@@ -1,0 +1,57 @@
+{
+  "name": "hc-awesome-validation",
+  "version": "1.0.3",
+  "description": "Validation module for redux-form based on react-intl messages.",
+  "main": "build/index.js",
+  "scripts": {
+    "publish": "npm run babel",
+    "babel": "NODE_ENV=production babel --presets es2015 src/ -d build/",
+    "test": "node scripts/test.js --env=jsdom",
+    "test:ci": "node scripts/test.js --env=jsdom --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holidaycheck/hc-awesome-validation.git"
+  },
+  "keywords": [
+    "redux-form",
+    "react-intl",
+    "validation",
+    "validator",
+    "shema",
+    "multimessage",
+    "multilanguage"
+  ],
+  "author": "Kamil Wisniewski",
+  "bugs": {
+    "url": "https://github.com/holidaycheck/hc-awesome-validation/issues"
+  },
+  "homepage": "https://github.com/holidaycheck/hc-awesome-validation#readme",
+  "dependencies": {
+    "ramda": "^0.24.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "jest": "^20.0.4"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ]
+  }
+}

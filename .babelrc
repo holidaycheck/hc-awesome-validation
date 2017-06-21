@@ -1,0 +1,15 @@
+{
+    "presets": [
+        "es2015"
+    ],
+    "plugins": [
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "production": {
+            "ignore": [
+                "src/__tests__"
+            ]
+        }
+    }
+}

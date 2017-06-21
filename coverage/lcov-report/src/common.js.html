@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/common.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">src</a> common.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>16/16</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import R from 'ramda';
+&nbsp;
+import {
+    isNonEmptyTrimmedString, hasLengthBetween as hasLengthBetweenPredicate,
+    isEqualOrShorterThan as isEqualOrShorterThanPredicate
+} from './predicates';
+import { NUMBER_REGEX, WITHOUT_NUMBER_REGEX, WITH_LETTER_REGEX } from './regexes';
+import errorMessages from './errorMessages';
+&nbsp;
+export const check = R.curry((predicate, msg, val) =&gt; {
+    return predicate(val) ? undefined : msg;
+});
+&nbsp;
+export const checkMultiple = R.curry((predicates, value) =&gt; {
+    const firstFailedPredicate = R.find((predicate) =&gt; {
+        return Boolean(predicate(value));
+    }, predicates);
+&nbsp;
+    return firstFailedPredicate ? firstFailedPredicate(value) : undefined;
+});
+&nbsp;
+export const setupCheck = (checkCallback) =&gt; (predicate, defaultMessage) =&gt; (customMessage) =&gt; {
+    return checkCallback(predicate, customMessage || defaultMessage);
+};
+&nbsp;
+export const checkSingle = setupCheck(check);
+&nbsp;
+export const isRequired = checkSingle(isNonEmptyTrimmedString, errorMessages.emptyField);
+export const isNumber = checkSingle(R.test(NUMBER_REGEX), errorMessages.numberField);
+&nbsp;
+export const hasLengthBetween = (from, to) =&gt; checkSingle(
+    hasLengthBetweenPredicate(from, to), errorMessages.fieldWrongLength
+);
+export const isEqualOrShorterThan = (length) =&gt; checkSingle(
+    isEqualOrShorterThanPredicate(length), errorMessages.toShortFieldValue
+);
+export const isStringWithoutNumbers = checkSingle(R.test(WITHOUT_NUMBER_REGEX), errorMessages.fieldWithNumbers);
+export const hasAtLeastOneLetter = checkSingle(R.test(WITH_LETTER_REGEX), errorMessages.fieldWithNumbersOnly);
+&nbsp;
+export const createNameSchema = (fieldName) =&gt; checkMultiple([
+    isRequired(errorMessages[`${fieldName}Empty`] || ''),
+    hasLengthBetween(2, 50)(errorMessages[`${fieldName}WrongLength`] || ''),
+    isStringWithoutNumbers(errorMessages[`${fieldName}WithNumbers`] || '')
+]);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jun 21 2017 11:00:13 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
