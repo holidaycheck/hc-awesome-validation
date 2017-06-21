@@ -59,3 +59,9 @@ there is also possibility to import route for common validator methods:
   * isStringWithoutNumbers
 * **lastNameSchema**
   * same as firstNameSchema
+
+Contributors:
+
+I would like to give special thanks to Jacek Smolak, Arur Szott, Marcin Boguś and Dawid Jankowiak for contributing to creation of this package.
+
+Please feel free to open issues and to create pull request with changes and new stuff! 
