@@ -1,6 +1,6 @@
 {
   "name": "hc-awesome-validation",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Validation module for redux-form based on react-intl messages.",
   "main": "build/index.js",
   "scripts": {
